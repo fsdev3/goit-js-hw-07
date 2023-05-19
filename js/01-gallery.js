@@ -17,3 +17,24 @@ const getGalleryItems = galleryItems
   .join("");
 
 imagesGallery.insertAdjacentHTML("beforeend", getGalleryItems);
+
+imagesGallery.addEventListener("click", onImageClick);
+
+function onImageClick(event) {
+  event.preventDefault();
+  if (event.target.nodeName !== "IMG") {
+    return;
+  }
+
+  const instance = basicLightbox.create(`
+    <img src="${event.target.dataset.source}" width="800" height="600">
+`);
+
+  instance.show();
+
+  imagesGallery.addEventListener("keydown", (event) => {
+    if (event.code === "Escape") {
+      instance.close();
+    }
+  });
+}
