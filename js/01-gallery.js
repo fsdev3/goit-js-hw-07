@@ -1,28 +1,26 @@
-import { galleryItems } from "./gallery-items.js";
+import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-console.log(galleryItems);
-
-const imagesGallery = document.querySelector(".gallery");
+const imagesGallery = document.querySelector('.gallery');
 
 const getGalleryItems = galleryItems
   .map(
-    (image) =>
+    image =>
       `<li class='gallery__item'>
       <a class='gallery__link' href='${image.original}'>
       <img class='gallery__image' src='${image.preview}' 
       data-source='${image.original}'
       alt='${image.description}'></a></li>`
   )
-  .join("");
+  .join('');
 
-imagesGallery.insertAdjacentHTML("beforeend", getGalleryItems);
+imagesGallery.insertAdjacentHTML('beforeend', getGalleryItems);
 
-imagesGallery.addEventListener("click", onImageClick);
+imagesGallery.addEventListener('click', onImageClick);
 
 function onImageClick(event) {
   event.preventDefault();
-  if (event.target.nodeName !== "IMG") {
+  if (event.target.nodeName !== 'IMG') {
     return;
   }
 
@@ -32,9 +30,10 @@ function onImageClick(event) {
 
   instance.show();
 
-  imagesGallery.addEventListener("keydown", (event) => {
-    if (event.code === "Escape") {
+  imagesGallery.addEventListener('keydown', event => {
+    if (event.code === 'Escape') {
       instance.close();
+      imagesGallery.removeEventListener('keydown', event);
     }
   });
 }
